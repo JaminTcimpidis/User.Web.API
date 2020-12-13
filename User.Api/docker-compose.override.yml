@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  users.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://localhost;http://localhost
+      - ASPNETCORE_HTTPS_PORT=44357
+    ports:
+      - "55506:80"
+      - "44357:443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets
