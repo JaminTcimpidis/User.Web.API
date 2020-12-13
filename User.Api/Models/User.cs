@@ -1,4 +1,4 @@
-﻿namespace .Users.Api.Models
+﻿namespace Users.Api.Models
 {
     public class User
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using .Users.Api.Models;
-using .Users.Api.Contexts;
+using Users.Api.Models;
+using Users.Api.Contexts;
 
-namespace .Users.Api.Controllers
+namespace Users.Api.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

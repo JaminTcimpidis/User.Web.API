@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using Jamin.Users.Api.Models;
+using Users.Api.Models;
 using System;
 using System.Data;
 
-namespace Jamin.Users.Api.Contexts
+namespace Users.Api.Contexts
 {
     public class UserContext
     {
