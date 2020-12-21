@@ -60,14 +60,15 @@ namespace Users.Api.Contexts
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("AddUser", conn);
-                cmd.Parameters.Add(new MySqlParameter("first_name", user.FirstName));
-                cmd.Parameters.Add(new MySqlParameter("last_name", user.LastName));
-                cmd.Parameters.Add(new MySqlParameter("_email", user.Email));
-                cmd.Parameters.Add(new MySqlParameter("_id", MySqlDbType.Int32).Direction = ParameterDirection.Output);
+                cmd.Parameters.Add(new MySqlParameter("@firstName", user.FirstName));
+                cmd.Parameters.Add(new MySqlParameter("@lastName", user.LastName));
+                cmd.Parameters.Add(new MySqlParameter("@userEmail", user.Email));
+                cmd.Parameters.Add(new MySqlParameter("@id", MySqlDbType.Int32));
+                cmd.Parameters["@id"].Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
 
-                userId = Convert.ToInt32(cmd.Parameters["_id"].Value);
+                userId = Convert.ToInt32(cmd.Parameters["@id"].Value);
             }
 
             return userId;

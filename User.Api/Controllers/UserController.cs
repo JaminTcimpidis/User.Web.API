@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Users.Api.Models;
 using Users.Api.Contexts;
+using Users.Api.Controllers.Messages;
 
 namespace Users.Api.Controllers
 {
@@ -28,10 +29,11 @@ namespace Users.Api.Controllers
         }
 
         [HttpPost]
-        public int Post([FromBody]User user)
+        public int Post(CreateUserRequest request)
         {
-            if(user != null)
+            if(request != null)
             {
+                User user = new User(request.FirstName, request.LastName, request.Email);
                 return _userContext.AddUser(user);
             }
             return 0;
