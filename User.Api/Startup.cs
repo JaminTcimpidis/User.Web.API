@@ -9,6 +9,7 @@ namespace Users.Api
 {
     public class Startup
     {
+        const string _corsPolicy = "cors";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,6 +22,14 @@ namespace Users.Api
         {
             services.AddControllers();
             services.AddTransient<UserContext>(_ => new UserContext(Configuration.GetConnectionString("UserMysqlConnection")));
+            services.AddCors(options => options.AddPolicy(_corsPolicy,
+            builder =>
+            {
+                builder.
+                AllowAnyOrigin().
+                AllowAnyMethod().
+                AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +43,8 @@ namespace Users.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(_corsPolicy);
 
             app.UseAuthorization();
 
