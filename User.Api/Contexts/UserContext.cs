@@ -24,23 +24,30 @@ namespace Users.Api.Contexts
         {
             List<User> users = new List<User>();
 
-            using (MySqlConnection conn = GetConnection())
+            try
             {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand("GetAllUsers", conn);
-
-                using (var reader = cmd.ExecuteReader())
+                using (MySqlConnection conn = GetConnection())
                 {
-                    while (reader.Read())
-                    {
-                        int id = Convert.ToInt32(reader["task_id"]);
-                        string firstName = reader["firstname"].ToString();
-                        string lastName = reader["lastname"].ToString();
-                        string email = reader["email"].ToString();
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("GetAllUsers", conn);
 
-                        users.Add(new User(id, firstName, lastName, email));
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = Convert.ToInt32(reader["id"]);
+                            string firstName = reader["firstname"].ToString();
+                            string lastName = reader["lastname"].ToString();
+                            string email = reader["email"].ToString();
+
+                            users.Add(new User(id, firstName, lastName, email));
+                        }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
 
             return users;
@@ -53,14 +60,14 @@ namespace Users.Api.Contexts
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("AddUser", conn);
-                cmd.Parameters.Add(new MySqlParameter("firstName", user.FirstName));
-                cmd.Parameters.Add(new MySqlParameter("lastName", user.LastName));
-                cmd.Parameters.Add(new MySqlParameter("email", user.Email));
-                cmd.Parameters.Add(new MySqlParameter("id", MySqlDbType.Int32).Direction = ParameterDirection.Output);
+                cmd.Parameters.Add(new MySqlParameter("first_name", user.FirstName));
+                cmd.Parameters.Add(new MySqlParameter("last_name", user.LastName));
+                cmd.Parameters.Add(new MySqlParameter("_email", user.Email));
+                cmd.Parameters.Add(new MySqlParameter("_id", MySqlDbType.Int32).Direction = ParameterDirection.Output);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
 
-                userId = Convert.ToInt32(cmd.Parameters["id"].Value);
+                userId = Convert.ToInt32(cmd.Parameters["_id"].Value);
             }
 
             return userId;
