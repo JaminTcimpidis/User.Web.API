@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using Users.Api.Models;
 using System;
 using System.Data;
+using System.Linq;
 
 namespace Users.Api.Contexts
 {
@@ -49,7 +50,7 @@ namespace Users.Api.Contexts
             {
                 throw ex;
             }
-
+            users.Reverse();
             return users;
         }
 
