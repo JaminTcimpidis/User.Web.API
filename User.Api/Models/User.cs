@@ -7,6 +7,13 @@
         private readonly string _lastName;
         private readonly string _email;
 
+        public User(string firstName, string lastname, string email)
+        {
+            _firstName = firstName;
+            _lastName = lastname;
+            _email = email;
+        }
+
         public User(int id, string firstName, string lastname, string email)
         {
             _id = id;

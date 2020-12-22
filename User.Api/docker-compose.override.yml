@@ -29,7 +29,7 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: fuckyou1
+      MYSQL_ROOT_PASSWORD: password321
       MYSQL_DATABASE: jamins_db
     networks:
       - user-network
