@@ -8,7 +8,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_HTTPS_PORT=44311
       - ConnectionString=${CONNECTION_STRING}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=9e3d93fd-7fd3-4f27-a6e1-e2f4b2a79710
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password123
       - ASPNETCORE_Kestrel__Certificates__Default__Path=./conf.d/https/dev_cert.pfx
     volumes:
       - ./conf.d/https/:/https/
@@ -27,7 +27,7 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: fuckyou1
+      MYSQL_ROOT_PASSWORD: password321
       MYSQL_DATABASE: jamins_db
     networks:
       - user-network
