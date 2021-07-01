@@ -22,14 +22,13 @@ namespace Users.Api.Controllers
         }
 
         [HttpGet]
-        public List<User> Get()
+        public ActionResult<List<User>> Get()
         {
-            
             return _userContext.GetUsers(); 
         }
 
         [HttpPost]
-        public int Post(CreateUserRequest request)
+        public ActionResult<int> Post(CreateUserRequest request)
         {
             if(request != null)
             {
@@ -37,6 +36,13 @@ namespace Users.Api.Controllers
                 return _userContext.AddUser(user);
             }
             return 0;
+        }
+
+        [HttpDelete]
+        public ActionResult Delete([FromQuery] int userId)
+        {
+          _userContext.DeleteUser(userId);
+          return new EmptyResult();
         }
     }
 }

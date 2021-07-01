@@ -2,34 +2,30 @@ version: '3.4'
 
 services:
   api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_HTTPS_PORT=44311
-      - ConnectionString=${CONNECTION_STRING}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password123
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=./conf.d/https/dev_cert.pfx
-    ports:
-      - "30513:80"
-      - "41120:443"
+      - ASPNETCORE_HTTPS_PORT=41120
+      - ConnectionString=server=db;port=3306;database=jamins_db;user=root;password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/users.api.pfx 
     volumes:
-      - ./conf.d/https/:/https/
+      - ${HOME}/.aspnet/https:/https:rw
     networks:
       - user-network
     ports:
       - "30513:80"
       - "41120:443"
-    restart: always
-    build:
-      context: .
-      dockerfile: ./Dockerfile
     depends_on:
       - db
   db:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password321
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: jamins_db
     networks:
       - user-network
@@ -43,3 +39,4 @@ volumes:
 
 networks:
   user-network:
+    driver: bridge
