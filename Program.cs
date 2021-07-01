@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.Threading;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 namespace Users.Api
@@ -7,7 +9,13 @@ namespace Users.Api
     {
         public static void Main(string[] args)
         {
+          try{
+            //Thread.Sleep(1000000);
             CreateHostBuilder(args).Build().Run();
+          }
+          catch(Exception ex){
+            Console.WriteLine(ex);
+          }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
